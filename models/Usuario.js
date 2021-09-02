@@ -18,10 +18,9 @@ const Usuario = db.sequelize.define('usuarios', {
     },
     funcao: {
         type: db.Sequelize.INTEGER,
-        defaultValue: 0
     }
 })
 
-//Usuario.sync({force: true})
+Usuario.sync({force: true})
 
 module.exports = Usuario

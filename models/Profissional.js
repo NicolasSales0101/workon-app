@@ -10,4 +10,3 @@ const Profissional = db.sequelize.define('profissionais', {
 })
 
 //Profissional.sync({force: true})
-

@@ -33,7 +33,7 @@ router.post('/registro', (req, res) => {
             erros.push({texto: 'As senhas são diferentes!'})
         }
 
-        if(erros.lenght > 0){
+        if(erros.length > 0){
             res.render('/registro', {erros: erros})
         } else {
             Usuario.findOne({where: {email: req.body.email}}).then((usuario) => {
@@ -69,6 +69,15 @@ router.post('/registro', (req, res) => {
                 res.redirect('/')
             })
         }
+})
+
+/* Rota para o usuário (que até então é um usuário normal) se cadastrar como um profissional 
+    
+   - Find para fazer a relação com funcao
+
+*/
+router.get('/cadastro-profissao', (req, res) => {
+    res.render('profissional/cadastro-profissao')
 })
 
 router.get('/login', (req, res) => {

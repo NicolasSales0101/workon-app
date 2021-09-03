@@ -5,6 +5,7 @@ const Usuario = require ('../models/Usuario')
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
 const { where } = require('sequelize')
+const Profissional = require('../models/Profissional')
 
 router.get('/registro', (req, res) => {
     res.render('usuarios/registro')
@@ -75,9 +76,17 @@ router.post('/registro', (req, res) => {
     
    - Find para fazer a relação com funcao
 
+Erro: acontece algo em relação ao código abaixo
+
 */
 router.get('/cadastro-profissao', (req, res) => {
-    res.render('profissional/cadastro-profissao')
+    Profissional.findAll().lean(true).then((profissionais) => {
+        res.render('usuarios/cadastro-profissao', {profissionais: profissionais})
+    }).catch((err) => {
+        req.flash('error_msg', 'Erro ao carregar o formulário!')
+        res.redirect('/')
+    })
+    
 })
 
 router.get('/login', (req, res) => {

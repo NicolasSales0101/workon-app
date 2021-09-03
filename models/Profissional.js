@@ -9,4 +9,6 @@ const Profissional = db.sequelize.define('profissionais', {
     }
 })
 
+module.exports = Profissional
+
 //Profissional.sync({force: true})

@@ -1,7 +1,6 @@
 /* Arquivo para criacao da tabela e campos do Usuario*/
 
 const db = require('./db')
-const Profissional = require('./Profissional')
 
 const Usuario = db.sequelize.define('usuarios', {
     nome: {
@@ -21,6 +20,6 @@ const Usuario = db.sequelize.define('usuarios', {
     }
 })
 
-Usuario.sync({force: true})
+//Usuario.sync({force: true})
 
 module.exports = Usuario

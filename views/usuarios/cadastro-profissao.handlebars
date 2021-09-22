@@ -1,0 +1,35 @@
+<h3>Cadastre-se como profissional</h3>
+
+<div class="card">
+    <div class="card-body">
+        <form action="/usuario/cadastro-profissao/add" method="POST">
+            <input type="hidden" name='id' value="{{usuarios.dataValues.id}}">
+            <label for='profissao'>Sua Profissao: </label>  
+            <select name="profissao" class="form-select">
+                {{#each profissionais}}
+                    <option value="{{dataValues.id}}">{{dataValues.profissao}}</option>
+                {{else}}
+                    <option value="0">Nenhuma profissao registrada</option>
+                {{/each}}
+            </select>
+                <div class="form-check">
+                    <br>
+                    <input class="form-check-input position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="..." required>
+                    <label class="custom-control-label" for="customCheck1">Você está ciente que se cadastrará como profissional?</label>
+                </div>
+            <br>
+            <button class="btn btn-success mt4" type="submit">Registrar como profissional</button>
+        </form>
+    </div>
+</div>
+
+<!-- Parte do código responsável pela criação de um formulário para cadastro do usuário em profissional -->
+<!--
+
+    • Form com os seguintes campos:
+        - profissao
+        - comfirmação
+    
+    • Botão para enviar os dados
+
+-->

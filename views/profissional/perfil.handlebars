@@ -46,9 +46,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
 <script>
      var socket = io()
+     var sender = ''
+     var receiver = ''
      var messages = document.getElementById('messages');
      var form = document.getElementById('form');
      var input = document.getElementById('input');
+
+     // io.emit("user_connected", user);
+     // sender = user
 
     form.addEventListener('submit', function(e) {
         e.preventDefault()

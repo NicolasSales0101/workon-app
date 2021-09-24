@@ -122,13 +122,14 @@ router.get('/login', (req, res) => {
     res.render('usuarios/login')
 })
 
-router.post('/login', (req, res, next) => {
-    passport.authenticate('local', {
+router.post('/login', passport.authenticate('local', {
         successRedirect: '/',
-        failureRedirect: '/usuarios/login',
+        failureRedirect: '/usuario/login',
         failureFlash: true
-    })(req, res, next)
-})
+    }), (req, res) => {
+        req.flash('error_msg', 'Houve um erro ao efetuar o processo de login')
+        res.redirect('/')
+    })
 
 router.get('/profissoes', (req, res) => {
     Usuario.findAll({where: {funcao: {[Op.ne]: null}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {

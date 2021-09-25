@@ -9,6 +9,7 @@ const Profissional = require('../models/Profissional')
 const db = require('../models/db')
 const bodyParser = require('body-parser')
 const { Op } = require("sequelize");
+const { userInfo } = require('os')
 
 router.get('/registro', (req, res) => {
     res.render('usuarios/registro')
@@ -145,6 +146,7 @@ router.get('/profissional/:id', (req, res) => {
     Usuario.findOne({where: {id: req.params.id}}).then((usuarios) => {
         if(usuarios){
             res.render('profissional/perfil', {usuarios: usuarios})
+            //console.log(req.user)
         } else {
             req.flash('error_msg', 'Este profissional não existe!')
             res.redirect('/usuario/profissoes')

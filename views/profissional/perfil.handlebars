@@ -1,59 +1,59 @@
 <div class="d-flex justify-content-start">
-<div class="card text-white bg-secondary mb-3 mt-4" style="width: 25rem;">
-    <div class="card-body">
-        <h1>{{usuarios.dataValues.nome}}</h1>
-        <hr>
-        <p>E-mail para contato: {{usuarios.dataValues.email}}</p>
-        <p>Localização: {{usuarios.dataValues.cidade}}</p>
-        <!-- Parte onde devemos inserir a descrição do profissional e um botão para o chat -->
-        <strong>Descrição:</strong><br>
-        <p>{{usuarios.dataValues.descricao}}</p>
-        <a href="/profissional/perfil/{{usuarios.dataValues.id}}" class="btn btn-primary">Editar perfil</a>
-    </div>
-</div>
-
-<style>
-    .messages {
-        width: 700px;
-        height: 400px;
-        margin: 20px 0;
-        border: 1px solid #ddd;
-        padding: 20px;
-  }
-
-  .card {
-      margin-left: 40px;
-      
-  }
-  
-</style>
-
-<div class="card mt-4">
-    <h5 class="card-header"> Chat 💬 </h5>
-    <div class="card-body">
-        <div class="messages" id="messages"></div>
-        <form id="form">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Digite sua mensagem" aria-label="Digite sua mensagem" aria-describedby="button-addon2" id="input">
-            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Enviar</button>
+    <div class="card text-white bg-secondary mb-3 mt-4" style="width: 25rem;">
+        <div class="card-body">
+            <input type="hidden" name="id" value="{{usuarios.dataValues.id}}">
+            <h1>{{usuarios.dataValues.nome}}</h1>
+            <hr>
+            <p>E-mail para contato: {{usuarios.dataValues.email}}</p>
+            <p>Localização: {{usuarios.dataValues.cidade}}</p>
+            <!-- Parte onde devemos inserir a descrição do profissional e um botão para o chat -->
+            <strong>Descrição:</strong><br>
+            <p>{{usuarios.dataValues.descricao}}</p>
+            <a href="/profissional/perfil/{{usuarios.dataValues.id}}" class="btn btn-primary">Editar perfil</a>
         </div>
-        </form>
     </div>
-</div>
 
+    <style>
+        .messages {
+            width: 700px;
+            height: 400px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            padding: 20px;
+    }
+
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages > li { padding: 0.5rem 1rem; }
+      #messages > li:nth-child(odd) { background: #efefef; }
+
+    .card {
+        margin-left: 40px;
+        
+    }
+    
+    </style>
+
+    <div class="card mt-4">
+        <h5 class="card-header"> Chat 💬 </h5>
+        <div class="card-body">
+            <div class="messages" id="messages"></div>
+            <form id="form">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Digite sua mensagem" aria-label="Digite sua mensagem" aria-describedby="button-addon2" id="input">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Enviar</button>
+            </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
 <script>
      var socket = io()
-     var sender = ''
-     var receiver = ''
      var messages = document.getElementById('messages');
      var form = document.getElementById('form');
      var input = document.getElementById('input');
-
-     // io.emit("user_connected", user);
-     // sender = user
+     
 
     form.addEventListener('submit', function(e) {
         e.preventDefault()

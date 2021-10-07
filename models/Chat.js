@@ -6,10 +6,6 @@ const Chat = db.sequelize.define('chat', {
         type: db.Sequelize.STRING,
         allowNull: false
     },
-    receiver: {
-        type: db.Sequelize.STRING,
-        allowNull: false 
-    },
     mensagem: {
         type: db.Sequelize.TEXT,
         allowNull: false

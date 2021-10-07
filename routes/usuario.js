@@ -145,7 +145,7 @@ router.get('/profissoes', (req, res) => {
 router.get('/profissional/:id', (req, res) => {
     Usuario.findOne({where: {id: req.params.id}}).then((usuarios) => {
         if(usuarios){
-            res.render('profissional/perfil', {usuarios: usuarios})
+            res.render('profissional/perfil', {usuarios: usuarios, user: req.user})
             //console.log(req.user)
         } else {
             req.flash('error_msg', 'Este profissional não existe!')

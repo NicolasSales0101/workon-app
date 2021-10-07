@@ -77,22 +77,20 @@ require('./config/auth')(passport)
     // Socket.io
 
         io.on('connection', socket => {
-            console.log('')
             console.log('🔌 Um usuário foi conectado, id →', socket.id)
-            console.log('📁 Room criado com id ~~> ' + socket.id)
 
             socket.on('disconnect', () => {
                 console.log('💤 Usuário disconectado')
               })
 
-            socket.on('chat message', (msg) => {
-                console.log('message: ' + msg)
+            socket.on('chat message', (msg, sender_id, sender_nome, dataAtual) => {
+                console.log('💬 Message: ' + msg + ' || Sender id: ' + sender_id + ' || Sender name: ' + sender_nome + ' || Data: ' + dataAtual)
             })
 
-            socket.on('chat message', (msg) => {
-                io/*.to(socket.id)*/.emit('chat message', msg);
+            socket.on('chat message', (msg, sender_id, sender_nome, dataAtual) => {
+                io.emit('chat message', msg, sender_id, sender_nome, dataAtual);
               });
-        })
+        })  
 
     // Outros
 

@@ -1,7 +1,9 @@
-<div class="d-flex justify-content-start">
+
     <div class="card text-white bg-secondary mb-3 mt-4" style="width: 25rem;">
         <div class="card-body">
-            <input type="hidden" name="id" value="{{usuarios.dataValues.id}}">
+            <input type="hidden" id="receptor_id" value="{{usuarios.dataValues.id}}">
+            <input type="hidden" id="emissor_id" value="{{user.id}}">
+            <input type="hidden" id="emissor_nome" value="{{user.nome}}">
             <h1>{{usuarios.dataValues.nome}}</h1>
             <hr>
             <p>E-mail para contato: {{usuarios.dataValues.email}}</p>
@@ -14,8 +16,8 @@
     </div>
 
     <style>
-        .messages {
-            width: 700px;
+        .body-messages {
+            width: 100%;
             height: 400px;
             margin: 20px 0;
             border: 1px solid #ddd;
@@ -25,18 +27,16 @@
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages > li { padding: 0.5rem 1rem; }
       #messages > li:nth-child(odd) { background: #efefef; }
-
-    .card {
-        margin-left: 40px;
-        
-    }
     
     </style>
 
     <div class="card mt-4">
         <h5 class="card-header"> Chat 💬 </h5>
         <div class="card-body">
-            <div class="messages" id="messages"></div>
+            <div class="body-messages">
+            <ul class="messages" id="messages"></ul>
+            </div>
+            <br>
             <form id="form">
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Digite sua mensagem" aria-label="Digite sua mensagem" aria-describedby="button-addon2" id="input">
@@ -45,7 +45,7 @@
             </form>
         </div>
     </div>
-</div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
 <script>
@@ -53,19 +53,26 @@
      var messages = document.getElementById('messages');
      var form = document.getElementById('form');
      var input = document.getElementById('input');
-     
+     var sender_id = document.getElementById('emissor_id').value
+     var sender_nome = document.getElementById('emissor_nome').value
+     var data = new Date();
+     var dia = String(data.getDate()).padStart(2, '0');
+     var mes = String(data.getMonth() + 1).padStart(2, '0');
+     var ano = data.getFullYear();
+     dataAtual = dia + '/' + mes + '/' + ano;
 
+     
     form.addEventListener('submit', function(e) {
         e.preventDefault()
         if (input.value) {
-            socket.emit('chat message', input.value);
+            socket.emit('chat message', input.value, sender_id, sender_nome, dataAtual);
             input.value = ''
         }
      })
 
-    socket.on('chat message', function(msg) {
+    socket.on('chat message', function(msg, sender_id, sender_nome, dataAtual) {
         var item = document.createElement('li');
-        item.textContent = msg;
+        item.textContent = sender_nome + ': ' + msg + ' [' + dataAtual + '] ';
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
     });

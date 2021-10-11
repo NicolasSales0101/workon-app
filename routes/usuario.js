@@ -61,7 +61,7 @@ router.post('/registro', (req, res) => {
                                 senha: hash,
                             }).then(() => {
                                 req.flash('success_msg', 'Usuario registrado com sucesso!')
-                                res.redirect('/')
+                                res.redirect('/usuario/profissoes')
                             }).catch((err) => {
                                 req.flash('error_msg', 'Houve um erro durante o salvamento do usuario')
                                 res.redirect('/usuario/registro')
@@ -124,7 +124,7 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login', passport.authenticate('local', {
-        successRedirect: '/',
+        successRedirect: '/usuario/profissoes',
         failureRedirect: '/usuario/login',
         failureFlash: true
     }), (req, res) => {
@@ -134,12 +134,12 @@ router.post('/login', passport.authenticate('local', {
 
 router.get('/profissoes', (req, res) => {
     Usuario.findAll({where: {funcao: {[Op.ne]: null}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
-        res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON())})
-    }).catch((err) => {
-        console.log(err)
-        req.flash('error_msg', 'Houve um erro ao listar os profissionais')
-        res.redirect('/')
-    })
+            res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON())})
+        }).catch((err) => {
+            console.log(err)
+            req.flash('error_msg', 'Houve um erro ao listar os profissionais')
+            res.redirect('/')
+        })
 }) 
 
 router.get('/profissional/:id', (req, res) => {

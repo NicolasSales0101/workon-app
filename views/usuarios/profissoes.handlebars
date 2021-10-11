@@ -1,21 +1,89 @@
-<h2>Profissionais dispoíveis: </h2>
-<hr>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>Jumbotron example · Bootstrap v5.1</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/jumbotron/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Favicons -->
+<link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/docs/5.1/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
+<meta name="theme-color" content="#7952b3">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .limit {
+        overflow: hidden; /* Removendo barra de rolagem */
+        text-overflow: ellipsis; /* Adicionando "..." ao final */
+        display: -webkit-box;
+        -webkit-line-clamp: 4; /* Quantidade de linhas */
+        -webkit-box-orient: vertical; 
+      }
+
+      .limit-1 {
+        overflow: hidden; /* Removendo barra de rolagem */
+        text-overflow: ellipsis; /* Adicionando "..." ao final */
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* Quantidade de linhas */
+        -webkit-box-orient: vertical; 
+      }
+
+    </style>
+
+    <div class="p-5 mb-4 bg-dark rounded-3">
+      <div class="container-fluid py-5 text-white">
+        <h1 class="display-5 fw-bold">Profissionais disponíveis</h1>
+        <p class="col-md-8 fs-4">Nesta parte você encontrará os pedreiros, pintores, eletricistas, mestre de obras entre muitos outros profissionais! Aperte no botão verificar para olhar seu perfil e comece um bate-papo com ele!</p>
+        <button class="btn btn-primary btn-lg" type="button">Example button</button>
+      </div>
+    </div>
 
 {{#each usuarios}}
-    <div class="card-group">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="row row-cols-4 row-cols-sm-2 row-cols-md-3 g-4">
             <div class="col">
-                <div class="card mt-4" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{nome}}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{Profissionais.profissoes}}</h6>
-                        <p class="card-text">Aqui onde ficará a descrição do profissional cadastrado</p>
-                        <a href="/usuario/profissional/{{id}}" class="btn btn-primary">Verificar</a>
+                <div class="card-body">
+                    <div class="card mt-4" style="width: 18rem; height: 15rem;">
+                        <div class="card-body">
+                            <h5 class="card-title limit-1">{{nome}}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{Profissionais.profissao}}</h6>
+                            {{#if descricao}}
+                            <p class="card-text limit">{{descricao}}</p>
+                            {{else}}
+                            <p class="card-text limit">Esse profissional não tem descricao</p>
+                            <br><br><br>
+                            {{/if}}
+                            <a href="/usuario/profissional/{{id}}" class="btn btn-primary">Verificar</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
 {{else}}
     <p>Nehum profissional registrado</p>
 {{/each}}

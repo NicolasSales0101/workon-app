@@ -1,16 +1,18 @@
 
-    <div class="card text-white bg-secondary mb-3 mt-4" style="width: 25rem;">
+    <div class="card fs-6 box mb-5 mt-4 rounded-3 shadow p-3 mb-4 bg-body box">
         <div class="card-body">
             <input type="hidden" id="receptor_id" value="{{usuarios.dataValues.id}}">
             <input type="hidden" id="emissor_id" value="{{user.id}}">
             <input type="hidden" id="emissor_nome" value="{{user.nome}}">
-            <h1>{{usuarios.dataValues.nome}}</h1>
+            <h1 class="display-3">{{usuarios.dataValues.nome}}</h1>
             <hr>
-            <p>E-mail para contato: {{usuarios.dataValues.email}}</p>
-            <p>Localização: {{usuarios.dataValues.cidade}}</p>
-            <!-- Parte onde devemos inserir a descrição do profissional e um botão para o chat -->
-            <strong>Descrição:</strong><br>
-            <p>{{usuarios.dataValues.descricao}}</p>
+            <p><b>Função: </b> {{usuarios.Profissionais.dataValues.profissao}}</p>
+            <p><b>E-mail para contato:</b> {{usuarios.dataValues.email}}</p>
+            <p><b>Localização:</b> {{usuarios.dataValues.cidade}}</p>
+            <div class="callout left-color">
+                <strong>Descrição: </strong>
+                <p>{{usuarios.dataValues.descricao}}</p>
+            </div>
             <a href="/profissional/perfil/{{usuarios.dataValues.id}}" class="btn btn-primary">Editar perfil</a>
         </div>
     </div>
@@ -21,20 +23,71 @@
             height: 400px;
             margin: 20px 0;
             border: 1px solid #ddd;
-            padding: 20px;
     }
 
-      #messages { list-style-type: none; margin: 0; padding: 0; }
+    .card-body {
+        z-index: 10;
+    }
+
+    .callout {
+        
+        padding: 1.25rem;
+        margin-top: 1.25rem;
+        margin-bottom: 1.25rem; 
+        border: 1px solid #e9ecef;
+        border-left-width: .25rem;
+        border-radius: .25rem;
+    }
+
+    .left-color {
+        border-left-color: #585555;
+    }
+
+      #messages { list-style-type: none; margin: 0; padding: 0; background: #ffffff; }
       #messages > li { padding: 0.5rem 1rem; }
       #messages > li:nth-child(odd) { background: #efefef; }
+
+      .box {
+       overflow: hidden;
+      }
+      
+      .box::before {
+          content: '';
+          position: absolute;
+          left: 35%;
+          top: -120%;
+          width: 340px;
+          height: 350%;
+          background: linear-gradient(#979696, #b3b1b1);
+          animation: animate 4s linear infinite;
+          
+      }
+
+      .box::after {
+          content: '';
+          position: absolute;
+          inset: 1.5px;
+          background: #ffffff;  
+      }
+
+      @keyframes animate {
+          0%
+          {
+              transform: rotate(0deg);
+          }
+          100%
+          {
+              transform: rotate(360deg);
+          }
+      }
     
     </style>
 
-    <div class="card mt-4">
-        <h5 class="card-header"> Chat 💬 </h5>
+    <div class="card mt-5 shadow p-3 mb-4 bg-body rounded">
         <div class="card-body">
+            <h4 class="text-center"> Chat 💬 </h4>
             <div class="body-messages">
-            <ul class="messages" id="messages"></ul>
+            <ul class="messages text-break" id="messages"></ul>
             </div>
             <br>
             <form id="form">
@@ -49,6 +102,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
 <script>
+    var result = '';
      var socket = io()
      var messages = document.getElementById('messages');
      var form = document.getElementById('form');
@@ -76,4 +130,22 @@
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
     });
+
+    Handlebars.registerHelper('if_img', (funcao, result) => {
+        if(funcao == 'Pedreiro'){
+            return result = '/img/4775.jpg'
+        }
+    })
+
+    /*
+    |  1 | Pedreiro             
+    |  2 | Pintor               
+    |  3 | Engenheiro           
+    |  4 | Mestre de obras      
+    |  5 | Armador              
+    |  6 | Carpinteiro          
+    |  7 | Eletricista          
+    |  8 | Encanador            
+    |  9 | Ajudante de pedreiro 
+    */
 </script>

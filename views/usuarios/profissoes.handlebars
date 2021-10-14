@@ -66,23 +66,22 @@
 {{#each usuarios}}
         <div class="row row-cols-4 row-cols-sm-2 row-cols-md-3 g-4">
             <div class="col">
-                <div class="card-body">
-                    <div class="card mt-4" style="width: 18rem; height: 15rem;">
-                        <div class="card-body">
-                            <h5 class="card-title limit-1">{{nome}}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{Profissionais.profissao}}</h6>
-                            {{#if descricao}}
-                            <p class="card-text limit">{{descricao}}</p>
-                            {{else}}
-                            <p class="card-text limit">Esse profissional não tem descricao</p>
-                            <br><br><br>
-                            {{/if}}
-                            <a href="/usuario/profissional/{{id}}" class="btn btn-primary">Verificar</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                <div class="card mt-4" style="width: 18rem; height: 15rem;">
+                      <div class="card-body">
+                          <h5 class="card-title limit-1">{{nome}}</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">{{Profissionais.profissao}}</h6>
+                          {{#if descricao}}
+                          <p class="card-text limit">{{descricao}}</p>
+                          {{else}}
+                          <p class="card-text limit">Esse profissional não tem descricao</p>
+                          <br><br><br>
+                          {{/if}}
+                          <a href="/usuario/profissional/{{id}}" class="btn btn-primary">Verificar</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+    
 
 {{else}}
     <p>Nehum profissional registrado</p>

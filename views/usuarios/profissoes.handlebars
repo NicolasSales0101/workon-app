@@ -59,7 +59,18 @@
       <div class="container-fluid py-5 text-white">
         <h1 class="display-5 fw-bold">Profissionais disponíveis</h1>
         <p class="col-md-8 fs-4">Nesta parte você encontrará os pedreiros, pintores, eletricistas, mestre de obras entre muitos outros profissionais! Aperte no botão verificar para olhar seu perfil e comece um bate-papo com ele!</p>
-        <button class="btn btn-primary btn-lg" type="button">Example button</button>
+        <p class="col-md-8 fs-5 fw-bold">↓ Selecione abaixo a profissão que você procura para agilizar a pesquisa! 🕓</p>
+        <form action="/usuario/profissoes/filtro" class="d-flex justify-content-start" method="POST">
+          <select class="btn-primary form-select-lg rounded-3" name="filtro">
+            <option class="bg-dark text-white align-baseline" value="0">Selecionar</option>
+            {{#each profissionais}}
+               <option class="bg-dark text-white align-baseline" value="{{dataValues.id}}">{{dataValues.profissao}}</option>
+            {{else}}
+               <option class="bg-dark text-white align-baseline" value="0">Nenhuma profissao registrada</option>
+            {{/each}}
+          </select>
+          <button class="btn btn-outline-primary form-control-lg ms-2" type="submit">Filtrar</button>
+        </form>
       </div>
     </div>
 
@@ -86,4 +97,3 @@
 {{else}}
     <p>Nehum profissional registrado</p>
 {{/each}}
-

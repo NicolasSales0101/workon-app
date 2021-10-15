@@ -23,6 +23,7 @@
             height: 400px;
             margin: 20px 0;
             border: 1px solid #ddd;
+            overflow: auto;
     }
 
     .card-body {
@@ -45,7 +46,6 @@
 
       #messages { list-style-type: none; margin: 0; padding: 0; background: #ffffff; }
       #messages > li { padding: 0.5rem 1rem; }
-      #messages > li:nth-child(odd) { background: #efefef; }
 
       .box {
        overflow: hidden;
@@ -87,7 +87,7 @@
         <div class="card-body">
             <h4 class="text-center"> Chat 💬 </h4>
             <div class="body-messages">
-            <ul class="messages text-break" id="messages"></ul>
+            <ul class="messages text-break" id="messages"><br></ul>
             </div>
             <br>
             <form id="form">
@@ -98,7 +98,6 @@
             </form>
         </div>
     </div>
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
 <script>
@@ -126,26 +125,15 @@
 
     socket.on('chat message', function(msg, sender_id, sender_nome, dataAtual) {
         var item = document.createElement('li');
-        item.textContent = sender_nome + ': ' + msg + ' [' + dataAtual + '] ';
-        messages.appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);
+        if (sender_id == document.getElementById('emissor_id').value) {
+            item.innerHTML = '<p class="float-end small p-2 ms-3 mb-3 rounded-3" style="background-color: #f5f6f7;">' + msg  + '<small class="text white ms-1" style="font-size: 10px"> [' + dataAtual + ']</small></p><br><br>';    
+            messages.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        } else {
+            item.innerHTML = '<p class="float-start small p-2 me-3 mb-3 text-white rounded-3 bg-primary">' + '<b>' + sender_nome + ':</b> ' + msg + ' <small class="text white ms-1" style="font-size: 10px"> [' + dataAtual + ']</small></p><br><br>';    
+            messages.appendChild(item);
+            window.scrollTo(0, document.messages.scrollHeight);
+        }
     });
 
-    Handlebars.registerHelper('if_img', (funcao, result) => {
-        if(funcao == 'Pedreiro'){
-            return result = '/img/4775.jpg'
-        }
-    })
-
-    /*
-    |  1 | Pedreiro             
-    |  2 | Pintor               
-    |  3 | Engenheiro           
-    |  4 | Mestre de obras      
-    |  5 | Armador              
-    |  6 | Carpinteiro          
-    |  7 | Eletricista          
-    |  8 | Encanador            
-    |  9 | Ajudante de pedreiro 
-    */
 </script>

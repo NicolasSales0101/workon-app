@@ -134,13 +134,47 @@ router.post('/login', passport.authenticate('local', {
 
 router.get('/profissoes', (req, res) => {
     Usuario.findAll({where: {funcao: {[Op.ne]: null}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
-            res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON())})
+        Profissional.findAll().then((profissionais) => {
+            res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON()), profissionais: profissionais})
+        }).catch((err) => {
+            req.flash('error_msg', 'Houve um erro ao listar os profissionais ❌')
+        })
         }).catch((err) => {
             console.log(err)
             req.flash('error_msg', 'Houve um erro ao listar os profissionais')
             res.redirect('/')
         })
 }) 
+
+router.post('/profissoes/filtro', (req, res) => {
+    console.log(req.body.filtro)
+    if (req.body.filtro != 0) {
+        Usuario.findAll({where: {funcao: {[Op.eq]: req.body.filtro}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
+            Profissional.findAll().then((profissionais) => {
+                res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON()), profissionais: profissionais})
+            }).catch((err) => {
+                req.flash('error_msg', 'Houve um erro ao listar os profissionais ❌')
+            })
+        }).catch((err) => {
+            console.log(err)
+            req.flash('error_msg', 'Houve um erro ao listar os profissionais')
+            res.redirect('/')
+        })  
+    } else {
+        Usuario.findAll({where: {funcao: {[Op.ne]: null}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
+            Profissional.findAll().then((profissionais) => {
+                res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON()), profissionais: profissionais})
+            }).catch((err) => {
+                req.flash('error_msg', 'Houve um erro ao listar os profissionais ❌')
+            })
+            }).catch((err) => {
+                console.log(err)
+                req.flash('error_msg', 'Houve um erro ao listar os profissionais')
+                res.redirect('/')
+            })
+    }
+     
+})
 
 router.get('/profissional/:id', (req, res) => {
     Usuario.findOne({where: {id: req.params.id}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {

@@ -16,6 +16,7 @@ const flash = require('connect-flash')
 const usuarios = require('./routes/usuario')
 const passport = require('passport')
 require('./config/auth')(passport)
+const Profissional = require('./models/Profissional')
 
 // Config
 

@@ -176,6 +176,20 @@ router.post('/profissoes/filtro', (req, res) => {
      
 })
 
+router.get('/profissoes/:id', (req, res) => {
+    Usuario.findAll({where: {funcao: {[Op.eq]: req.params.id}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
+        Profissional.findAll().then((profissionais) => {
+            res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON()), profissionais: profissionais})
+        }).catch((err) => {
+            req.flash('error_msg', 'Houve um erro ao listar os profissionais ❌')
+        })
+    }).catch((err) => {
+        console.log(err)
+        req.flash('error_msg', 'Houve um erro ao listar os profissionais')
+        res.redirect('/')
+    })
+})
+
 router.get('/profissional/:id', (req, res) => {
     Usuario.findOne({where: {id: req.params.id}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
         if(usuarios){
@@ -192,11 +206,10 @@ router.get('/profissional/:id', (req, res) => {
     })
 })
 
-router.get('logout', (req, res) => {
+router.get('/logout', (req, res) => {
     req.logout()
-    res.flash('success_msg', 'Deslogado com sucesso!')
+    req.flash('success_msg', 'Deslogado com sucesso!')
     res.redirect('/')
-    /* coloca essa rota em alguma parte da navbar */
 })
 
 module.exports = router

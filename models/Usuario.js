@@ -27,6 +27,10 @@ const Usuario = db.sequelize.define('usuarios', {
     },
     telefone: {
         type: db.Sequelize.STRING
+    },
+    profile_img: {
+        type: db.Sequelize.STRING,
+        defaultValue: 'default_profile_image.png'
     }
 })
 

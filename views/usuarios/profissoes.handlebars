@@ -53,14 +53,23 @@
         -webkit-box-orient: vertical; 
       }
 
+      .mt-n098 {
+        margin-top: -0.98rem !important;
+      }
+
+      .card-body > img{
+        width: 100%;
+        height: 100%;
+      }
+
     </style>
 
     <div class="p-5 mb-4 bg-dark rounded-3">
       <div class="container-fluid py-5 text-white">
         <h1 class="display-5 fw-bold">Profissionais disponíveis</h1>
-        <p class="col-md-8 fs-4">Nesta parte você encontrará os pedreiros, pintores, eletricistas, mestre de obras entre muitos outros profissionais! Aperte no botão verificar para olhar seu perfil e comece um bate-papo com ele!</p>
-        <p class="col-md-8 fs-5 fw-bold">↓ Selecione abaixo a profissão que você procura para agilizar a pesquisa! 🕓</p>
-        <form action="/usuario/profissoes/filtro" class="d-flex justify-content-start" method="POST">
+        <p class="col-md-8 fs-4 mt-2">Nesta parte você encontrará os pedreiros, pintores, eletricistas, mestre de obras entre muitos outros profissionais! Aperte no botão verificar para olhar seu perfil e comece um bate-papo com ele!</p>
+        <p class="col-md-8 fs-5 fw-bold mt-4">↓ Selecione abaixo a profissão que você procura para agilizar a pesquisa! 🕓</p>
+        <form action="/usuario/profissoes/filtro" class="d-flex justify-content-start mt-4" method="POST">
           <select class="btn-primary form-select-lg rounded-3" name="filtro">
             <option class="bg-dark text-white align-baseline" value="0">Selecionar</option>
             {{#each profissionais}}
@@ -73,10 +82,36 @@
         </form>
       </div>
     </div>
-
-{{#each usuarios}}
-        <div class="row row-cols-4 row-cols-sm-2 row-cols-md-3 g-4">
-            <div class="col">
+    
+    <div class="container">
+        <div class="row row-cols-2">
+          {{#each usuarios}}
+            <div class="col-lg-4">
+              <div class="card mb-4 mt-4 shadow p-3 mb-5 bg-body rounded">
+                <div class="card-body text-center">
+                  <div class="d-flex justify-content-center align-items-center">
+                    <div class="avatar-apresentation">
+                      <div class="avatar-view">
+                        <div style="background-image: url(/uploads/{{profile_img}});">
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  <h5 class="my-2 limit-1 fw-bold fs-5">{{nome}}</h5>
+                  <p class="text-muted mb-2">{{Profissionais.profissao}}</p>
+                  {{#if descricao}}
+                      <p class="card-text limit mb-2 mt-2">{{descricao}}</p>
+                  {{else}}
+                      <p class="card-text limit">Esse profissional não tem descricao</p>
+                      <p>.</p>
+                      <p class="mt-n098">.</p>
+                      
+                  {{/if}}
+                  <a href="/usuario/profissional/{{id}}" class="btn btn-primary mt-2 w-75">Verificar</a>
+                </div>
+              </div>
+          </div>
+ <!--           <div class="cols">
                 <div class="card mt-4" style="width: 18rem; height: 15rem;">
                       <div class="card-body">
                           <h5 class="card-title limit-1">{{nome}}</h5>
@@ -90,10 +125,29 @@
                           <a href="/usuario/profissional/{{id}}" class="btn btn-primary">Verificar</a>
                       </div>
                   </div>
-              </div>
+              </div>-->
+              {{else}}
+                <p>Nehum profissional registrado</p>
+              {{/each}}
           </div>
-    
+        </div>
 
-{{else}}
-    <p>Nehum profissional registrado</p>
-{{/each}}
+
+<!--
+      <div class="col-lg-4">
+        <div class="card mb-4 mt-4">
+          <div class="card-body text-center">
+            <img src="/img/{{profile_img}}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+            <p class="limit-1 fw-bold f-6">{{nome}}</p>
+            <p class="text-muted mb-1">{{Profissionais.profissao}}</p>
+            {{#if descricao}}
+                <p class="card-text limit">{{descricao}}</p>
+            {{else}}
+                <p class="card-text limit">Esse profissional não tem descricao</p>
+                <br><br><br>
+            {{/if}}
+            <a href="/usuario/profissional/{{id}}" class="btn btn-primary">Verificar</a>
+            </div>
+          </div>
+        </div>
+-->

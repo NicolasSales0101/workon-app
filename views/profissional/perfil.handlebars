@@ -4,7 +4,15 @@
             <input type="hidden" id="receptor_id" value="{{usuarios.dataValues.id}}">
             <input type="hidden" id="emissor_id" value="{{user.id}}">
             <input type="hidden" id="emissor_nome" value="{{user.nome}}">
-            <h1 class="display-3">{{usuarios.dataValues.nome}}</h1>
+            <div class="d-flex justify-content-start align-items-center">
+                <div class="avatar-apresentation">
+                    <div class="avatar-view">
+                        <div style="background-image: url(/uploads/{{usuarios.dataValues.profile_img}});">
+                        </div>
+                    </div>
+                </div>
+                <h1 class="display-3 ms-3">{{usuarios.dataValues.nome}}</h1>
+            </div>
             <hr>
             <p><b>Função: </b> {{usuarios.Profissionais.dataValues.profissao}}</p>
             <p><b>E-mail para contato:</b> {{usuarios.dataValues.email}}</p>
@@ -99,6 +107,7 @@
         </div>
     </div>
 
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script><script  src="/js/script.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
 <script>
     var result = '';

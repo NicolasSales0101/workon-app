@@ -2,6 +2,7 @@
     <div class="card fs-6 box mb-5 mt-4 rounded-3 shadow p-3 mb-4 bg-body box">
         <div class="card-body">
             <input type="hidden" id="receptor_id" value="{{usuarios.dataValues.id}}">
+            <input type="hidden" id="receptor_nome" value="{{usuarios.dataValues.nome}}">
             <input type="hidden" id="emissor_id" value="{{user.id}}">
             <input type="hidden" id="emissor_nome" value="{{user.nome}}">
             <div class="d-flex justify-content-start align-items-center">
@@ -117,6 +118,8 @@
      var input = document.getElementById('input');
      var sender_id = document.getElementById('emissor_id').value
      var sender_nome = document.getElementById('emissor_nome').value
+     var receiver_id = document.getElementById('receptor_id').value
+     var receiver_nome = document.getElementById('receptor_nome').value
      var data = new Date();
      var dia = String(data.getDate()).padStart(2, '0');
      var mes = String(data.getMonth() + 1).padStart(2, '0');
@@ -127,7 +130,7 @@
     form.addEventListener('submit', function(e) {
         e.preventDefault()
         if (input.value) {
-            socket.emit('chat message', input.value, sender_id, sender_nome, dataAtual);
+            socket.emit('chat message', input.value, sender_id, sender_nome, receiver_id, receiver_nome, dataAtual);
             input.value = ''
         }
      })

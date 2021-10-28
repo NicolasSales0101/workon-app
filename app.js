@@ -85,11 +85,11 @@ const Profissional = require('./models/Profissional')
                 console.log('💤 Usuário disconectado')
               })
 
-            socket.on('chat message', (msg, sender_id, sender_nome, dataAtual) => {
-                console.log('💬 Message: ' + msg + ' || Sender id: ' + sender_id + ' || Sender name: ' + sender_nome + ' || Data: ' + dataAtual)
+            socket.on('chat message', (msg, sender_id, sender_nome, receiver_id, receiver_nome, dataAtual) => {
+                console.log('💬 Message: ' + msg + ' || Sender id: ' + sender_id + ' || Sender name: ' + sender_nome + ' || Receiver id: ' + receiver_id + ' || Receiver name: ' + receiver_nome + ' || Data: ' + dataAtual)
             })
 
-            socket.on('chat message', (msg, sender_id, sender_nome, dataAtual) => {
+            socket.on('chat message', (msg, sender_id, sender_nome, receiver_id, receiver_nome, dataAtual) => {
                 io.emit('chat message', msg, sender_id, sender_nome, dataAtual);
               });
         })  

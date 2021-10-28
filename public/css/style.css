@@ -5,6 +5,12 @@ body {
 
 */
 
+@media only screen and (max-device-width: 700px) {
+  body {
+    overflow-x: hidden;
+  }
+}
+
 .avatar-upload {
   position: relative;
   max-width: 205px;

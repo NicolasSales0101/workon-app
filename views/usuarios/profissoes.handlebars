@@ -1,25 +1,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.88.1">
-    <title>Jumbotron example · Bootstrap v5.1</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/jumbotron/">
-
-    
-
-    <!-- Bootstrap core CSS -->
-<link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-    <!-- Favicons -->
-<link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="/docs/5.1/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
-<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
-<meta name="theme-color" content="#7952b3">
+    <meta name="theme-color" content="#7952b3">
 
 
     <style>
@@ -34,6 +15,16 @@
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
+        }
+
+      }
+
+      @media only screen and (max-device-width: 767px) {
+        .row.row-cols-2 {
+          display: none;
+        }
+        .p-5.mb-4.bg-dark.rounded-3 {
+          width: 100%;
         }
       }
 
@@ -126,6 +117,40 @@
                       </div>
                   </div>
               </div>-->
+              {{else}}
+                <p>Nehum profissional registrado</p>
+              {{/each}}
+          </div>
+
+          <!-- Resposive part -->
+
+          <div class="row row-cols-1 d-lg-none">
+          {{#each usuarios}}
+            <div class="col-lg-4">
+              <div class="card mb-4 shadow p-3 bg-body rounded">
+                <div class="card-body text-center">
+                  <div class="d-flex justify-content-center align-items-center">
+                    <div class="avatar-apresentation">
+                      <div class="avatar-view">
+                        <div style="background-image: url(/uploads/{{profile_img}});">
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  <h5 class="my-2 limit-1 fw-bold fs-5">{{nome}}</h5>
+                  <p class="text-muted mb-2">{{Profissionais.profissao}}</p>
+                  {{#if descricao}}
+                      <p class="card-text limit mb-2 mt-2">{{descricao}}</p>
+                  {{else}}
+                      <p class="card-text limit">Esse profissional não tem descricao</p>
+                      <p>.</p>
+                      <p class="mt-n098">.</p>
+                      
+                  {{/if}}
+                  <a href="/usuario/profissional/{{id}}" class="btn btn-primary mt-2 w-75">Verificar</a>
+                </div>
+              </div>
+            </div>
               {{else}}
                 <p>Nehum profissional registrado</p>
               {{/each}}

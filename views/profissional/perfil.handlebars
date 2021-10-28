@@ -21,7 +21,11 @@
                 <strong>Descrição: </strong>
                 <p>{{usuarios.dataValues.descricao}}</p>
             </div>
-            <a href="/profissional/perfil/{{usuarios.dataValues.id}}" class="btn btn-primary">Editar perfil</a>
+            <div class="d-flex justify-content-center">
+            <a href="/profissional/perfil/{{usuarios.dataValues.id}}" class="btn btn-primary d-none d-lg-block d-print-block w-25">Editar perfil</a>
+            </div>
+            <a href="/profissional/perfil/1" class="btn btn-primary w-100 d-lg-none">Editar perfil</a>
+            <a href="/usuario/logout" class="btn btn-danger w-100 mt-1 d-lg-none">Sair</a>
         </div>
     </div>
 

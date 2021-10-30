@@ -1,0 +1,35 @@
+{
+  "name": "workon-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.3",
+    "express-session": "^1.17.2",
+    "http": "^0.0.1-security",
+    "multer": "^1.4.3",
+    "mysql2": "^2.3.0",
+    "passport-local": "^1.0.0",
+    "passport": "^0.4.1",
+    "sequelize": "^6.6.5",
+    "socket.io": "^4.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NicolasSales0101/workon-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NicolasSales0101/workon-app/issues"
+  },
+  "homepage": "https://github.com/NicolasSales0101/workon-app#readme"
+}

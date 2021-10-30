@@ -7,7 +7,6 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 const handlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
-const Sequelize = require('sequelize')
 const db = require('./models/db')
 const profissional = require('./routes/profissional')
 const path = require('path')
@@ -16,7 +15,7 @@ const flash = require('connect-flash')
 const usuarios = require('./routes/usuario')
 const passport = require('passport')
 require('./config/auth')(passport)
-const Profissional = require('./models/Profissional')
+const Chat = require('./models/Chat')
 
 // Config
 
@@ -90,7 +89,18 @@ const Profissional = require('./models/Profissional')
             })
 
             socket.on('chat message', (msg, sender_id, sender_nome, receiver_id, receiver_nome, dataAtual) => {
-                io.emit('chat message', msg, sender_id, sender_nome, dataAtual);
+                Chat.create({
+                    mensagem: msg,
+                    sender_id: sender_id,
+                    sender_nome: sender_nome,
+                    receiver_id: receiver_id,
+                    receiver_nome: receiver_nome
+                }).then(() => {
+                    io.emit('chat message', msg, sender_id, sender_nome, dataAtual);
+                }).catch((err) => {
+                    req.flash('error_msg', 'Ocorreu algum erro no chat ❌, tente usar esse recurso mais tarde...')
+                    res.redirect('/profissional/perfil/' + receiver_id)
+                })
               });
         })  
 

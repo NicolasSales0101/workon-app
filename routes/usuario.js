@@ -135,9 +135,14 @@ router.post('/login', passport.authenticate('local', {
 router.get('/profissoes', (req, res) => {
     Usuario.findAll({where: {funcao: {[Op.ne]: null}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
         Profissional.findAll().then((profissionais) => {
-            res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON()), profissionais: profissionais})
+            Usuario.count({where: {funcao: {[Op.ne]: null}}}).then((resposta) => {
+                console.log(resposta)
+                res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON()), profissionais: profissionais, total: resposta})
+            })
         }).catch((err) => {
+            console.log(err)
             req.flash('error_msg', 'Houve um erro ao listar os profissionais ❌')
+            res.redirect('/')
         })
         }).catch((err) => {
             console.log(err)
@@ -151,7 +156,10 @@ router.post('/profissoes/filtro', (req, res) => {
     if (req.body.filtro != 0) {
         Usuario.findAll({where: {funcao: {[Op.eq]: req.body.filtro}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
             Profissional.findAll().then((profissionais) => {
-                res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON()), profissionais: profissionais})
+                Usuario.count({where: {funcao: {[Op.eq]: req.body.filtro}}}).then((resposta) => {
+                    console.log(resposta)
+                    res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON()), profissionais: profissionais, total: resposta})
+                })
             }).catch((err) => {
                 req.flash('error_msg', 'Houve um erro ao listar os profissionais ❌')
             })
@@ -163,7 +171,10 @@ router.post('/profissoes/filtro', (req, res) => {
     } else {
         Usuario.findAll({where: {funcao: {[Op.ne]: null}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
             Profissional.findAll().then((profissionais) => {
-                res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON()), profissionais: profissionais})
+                Usuario.count({where: {funcao: {[Op.ne]: null}}}).then((resposta) => {
+                    console.log(resposta)
+                    res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON()), profissionais: profissionais, total: resposta})
+                })
             }).catch((err) => {
                 req.flash('error_msg', 'Houve um erro ao listar os profissionais ❌')
             })
@@ -179,7 +190,10 @@ router.post('/profissoes/filtro', (req, res) => {
 router.get('/profissoes/:id', (req, res) => {
     Usuario.findAll({where: {funcao: {[Op.eq]: req.params.id}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
         Profissional.findAll().then((profissionais) => {
-            res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON()), profissionais: profissionais})
+            Usuario.count({where: {funcao: {[Op.eq]: req.params.id}}}).then((resposta) => {
+                console.log(resposta)
+                res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON()), profissionais: profissionais, total: resposta})
+            })
         }).catch((err) => {
             req.flash('error_msg', 'Houve um erro ao listar os profissionais ❌')
         })

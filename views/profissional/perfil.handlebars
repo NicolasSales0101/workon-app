@@ -22,7 +22,14 @@
                 <strong>Descrição: </strong>
                 <p>{{usuarios.dataValues.descricao}}</p>
             </div>
-            <a href="/profissional/perfil/{{usuarios.dataValues.id}}" class="btn btn-primary">Editar perfil</a>
+            <a href="/profissional/perfil/{{usuarios.dataValues.id}}" class="btn btn-outline-primary mb-3 w-25">Editar perfil</a>
+            <form action="/chat/new" method="post">
+                <input type="hidden" name="receptor_id" value="{{usuarios.dataValues.id}}">
+                <input type="hidden" name="receptor_nome" value="{{usuarios.dataValues.nome}}">
+                <input type="hidden" name="emissor_id" value="{{user.id}}">
+                <input type="hidden" name="emissor_nome" value="{{user.nome}}">
+                <button type="submit" class="btn btn-primary w-25">Conversar agora</button>
+            </form>
         </div>
     </div>
 
@@ -94,14 +101,14 @@
 
     <div class="card mt-5 shadow p-3 mb-4 bg-body rounded">
         <div class="card-body">
-            <h4 class="text-center"> Chat 💬 </h4>
+            <h4 class="text-center"> Comentários 💬 </h4>
             <div class="body-messages">
             <ul class="messages text-break" id="messages"><br></ul>
             </div>
             <br>
             <form id="form">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Digite sua mensagem" aria-label="Digite sua mensagem" aria-describedby="button-addon2" id="input">
+                <input type="text" class="form-control" placeholder="Digite seu comentário" aria-label="Digite seu comentário" aria-describedby="button-addon2" id="input">
                 <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Enviar</button>
             </div>
             </form>

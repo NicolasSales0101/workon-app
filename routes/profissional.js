@@ -32,16 +32,15 @@ router.get('/perfil/:id', (req, res) => {
 })
 
 router.post('/perfil/edit', multer(multerConfig).single('file'), (req,res) => {
-    console.log('body.file: ' + req.body.file)
-    console.log('file: ' + req.file)
-    //console.log('filename: ' + req.file.filename)
     Usuario.findOne({where: {id: req.body.id}}).then((usuarios) => {
         usuarios.nome = req.body.nome
         usuarios.cidade = req.body.cidade
         usuarios.telefone = req.body.telefone
         usuarios.funcao = req.body.profissao
         usuarios.descricao = req.body.descricao
-        usuarios.profile_img = req.file.filename
+        if (req.file) {
+            usuarios.profile_img = req.file.filename
+        }
 
         usuarios.save().then(() => {
             /*

@@ -2,28 +2,24 @@
 const db = require('./db')
 
 const Chat = db.sequelize.define('chat', {
-    mensagem: {
-        type: db.Sequelize.TEXT,
-        allowNull: false
-    },
     sender_id: {
         type: db.Sequelize.INTEGER,
         allowNull: false
     },
     sender_nome: {
         type: db.Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
     },
     receiver_id: {
         type: db.Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
     },
     receiver_nome: {
         type: db.Sequelize.STRING,
         allowNull: false
-    },
+    }
 })
 
-//Chat.sync({force: true})
+// Chat.sync({force: true})
 
 module.exports = Chat

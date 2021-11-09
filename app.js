@@ -16,6 +16,8 @@ const usuarios = require('./routes/usuario')
 const passport = require('passport')
 require('./config/auth')(passport)
 const Chat = require('./models/Chat')
+const Mensagem = require('./models/Mensagem')
+const chat = require('./routes/chat')
 
 // Config
 
@@ -74,6 +76,7 @@ const Chat = require('./models/Chat')
 
         app.use('/profissional', profissional)
         app.use('/usuario', usuarios)
+        app.use('/chat', chat)
 
     // Socket.io
 
@@ -84,24 +87,27 @@ const Chat = require('./models/Chat')
                 console.log('💤 Usuário disconectado')
               })
 
-            socket.on('chat message', (msg, sender_id, sender_nome, receiver_id, receiver_nome, dataAtual) => {
-                console.log('💬 Message: ' + msg + ' || Sender id: ' + sender_id + ' || Sender name: ' + sender_nome + ' || Receiver id: ' + receiver_id + ' || Receiver name: ' + receiver_nome + ' || Data: ' + dataAtual)
-            })
+            socket.on('connect_room', function(room) {
+                socket.join(room)
 
-            socket.on('chat message', (msg, sender_id, sender_nome, receiver_id, receiver_nome, dataAtual) => {
-                Chat.create({
-                    mensagem: msg,
-                    sender_id: sender_id,
-                    sender_nome: sender_nome,
-                    receiver_id: receiver_id,
-                    receiver_nome: receiver_nome
-                }).then(() => {
-                    io.emit('chat message', msg, sender_id, sender_nome, dataAtual);
-                }).catch((err) => {
-                    req.flash('error_msg', 'Ocorreu algum erro no chat ❌, tente usar esse recurso mais tarde...')
-                    res.redirect('/profissional/perfil/' + receiver_id)
+                socket.on('private chat message', (msg, sender_id, sender_nome, dataAtual) => {
+                    console.log('💬 Message: ' + msg + ' || Sender id: ' + sender_id + ' || Sender name: ' + sender_nome + ' || Data: ' + dataAtual)
                 })
-              });
+    
+                socket.on('private chat message', (msg, sender_id, sender_nome, dataAtual) => {
+                    Mensagem.create({
+                        mensagem: msg,
+                        sender_id: sender_id,
+                        sender_nome: sender_nome,
+                        chat_id: room
+                    }).then(() => {
+                        io.sockets.in(room).emit('private chat message', msg, sender_id, sender_nome, dataAtual);
+                    }).catch((err) => {
+                        req.flash('error_msg', 'Ocorreu algum erro no chat ❌, tente usar esse recurso mais tarde...')
+                        res.redirect('/profissional/perfil/' + receiver_id)
+                    })
+                  });
+            })
         })  
 
     // Outros

@@ -1,0 +1,29 @@
+<h1>Mensagens: </h1>
+<!--
+{{#each chats}}
+    <div class="d-flex fs-6 box mb-5 mt-4 rounded-3 shadow p-3 mb-4 bg-body bo">
+        <h2 class="me-5">Conversa entre: {{dataValues.sender_nome}} {{dataValues.receiver_nome}}</h2>
+        <a href="/chat/{{dataValues.id}}" class="btn btn-primary mb-3">Conversar</a>
+        <hr class="featurette-divider">
+    </div>
+{{/each}}
+-->
+<hr>
+<div class="fs-6 box mb-5 mt-4 rounded-3 shadow p-3 mb-4 bg-body bo">
+{{#each chats_sender}}
+<div class="d-flex mb-5">
+    <h2 class="me-5">{{dataValues.receiver_nome}}</h2>
+    <a href="/chat/{{dataValues.id}}/{{dataValues.receiver_nome}}" class="btn btn-primary mb-3">Conversar</a>
+    <hr class="featurette-divider">
+</div>
+{{/each}}
+{{#each chats_receiver}}
+<div class="d-flex">
+    <h2 class="me-5">{{dataValues.sender_nome}}</h2>
+    <a href="/chat/{{dataValues.id}}/{{dataValues.sender_nome}}" class="btn btn-primary mb-3">Conversar</a>
+    <hr class="featurette-divider">
+</div>
+{{/each}}
+</div>
+
+

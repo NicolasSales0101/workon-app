@@ -16,16 +16,6 @@ const Mensagem = db.sequelize.define('mensagens', {
         type: db.Sequelize.STRING,
         allowNull: false
     },
-    /*
-    receiver_id: {
-        type: db.Sequelize.INTEGER,
-        allowNull: false
-    },
-    receiver_nome: {
-        type: db.Sequelize.STRING,
-        allowNull: false
-    },
-    */
     chat_id: {
         type: db.Sequelize.INTEGER,
         allowNull: false
@@ -36,6 +26,6 @@ const Mensagem = db.sequelize.define('mensagens', {
 Chat.hasMany(Mensagem, {as: 'Mensagens', foreignKey: 'chat_id'})
 Mensagem.belongsTo(Chat, {as: 'Chats', foreignKey: 'chat_id'})
 
-//Mensagem.sync({force: true})
+// Mensagem.sync({force: true})
 
 module.exports = Mensagem

@@ -10,11 +10,19 @@ const Chat = db.sequelize.define('chat', {
         type: db.Sequelize.STRING,
         allowNull: false,
     },
+    sender_img: {
+        type: db.Sequelize.STRING,
+        allowNull: false
+    },
     receiver_id: {
         type: db.Sequelize.INTEGER,
         allowNull: false,
     },
     receiver_nome: {
+        type: db.Sequelize.STRING,
+        allowNull: false
+    },
+    receiver_img: {
         type: db.Sequelize.STRING,
         allowNull: false
     }

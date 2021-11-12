@@ -1,0 +1,62 @@
+<style>
+    .limit-1 {
+        overflow: hidden; /* Removendo barra de rolagem */
+        text-overflow: ellipsis; /* Adicionando "..." ao final */
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* Quantidade de linhas */
+        -webkit-box-orient: vertical; 
+      }
+</style>
+
+<h1>Mensagens: </h1>
+
+<hr>
+<div class="fs-6 box mb-5 mt-4 rounded-3 shadow p-3 mb-4 bg-body align-items-center">
+{{#if ifExist}}
+{{else}}
+<div class="border-start border-5">
+    <h2 class="me-4 ms-3 text-muted">Você não tem nenhuma conversa 😥</h2>
+    <h5 class="me-4 ms-3 text-muted">Tente entrar no perfil de algum profissional que lhe interesse e aperte no botão "Conversar Agora" para iniciar um bate-papo 🆓</h5>
+</div>
+{{/if}}
+{{#each chats_sender}}
+<a href="/chat/{{dataValues.id}}/{{dataValues.receiver_nome}}" class="chat-link">
+<div class="d-flex align-items-center mb-n01 border-end border-2">
+    <div class="avatar-apresentation chat-view mt-n03">
+        <div class="avatar-view">
+            <div style="background-image: url(/uploads/{{dataValues.receiver_img}});"></div>
+        </div>
+    </div>
+    <div class="d-flex flex-column bd-highlight mt-3">
+        <h3 class="me-4 ms-4 text-body bd-highlight">{{dataValues.receiver_nome}}</h3>
+        {{#each Mensagens}}
+        <p class="me-4 ms-4 bd-highlight text-muted limit-1">→ {{dataValues.mensagem}}</p>
+        {{/each}}
+    </div>
+    <hr class="featurette-divider">
+</div>
+</a>
+<hr>
+{{/each}}
+{{#each chats_receiver}}
+<a href="/chat/{{dataValues.id}}/{{dataValues.sender_nome}}" class="chat-link">
+<div class="d-flex align-items-center mb-n01 border-end border-2">
+    <div class="avatar-apresentation chat-view mt-n03">
+        <div class="avatar-view">
+            <div style="background-image: url(/uploads/{{dataValues.sender_img}});"></div>
+        </div>
+    </div>
+    <div class="d-flex flex-column bd-highlight mt-3">
+        <h3 class="me-4 ms-4 text-body bd-highlight">{{dataValues.sender_nome}}</h3>
+        {{#each Mensagens}}
+            <p class="me-4 ms-4 bd-highlight text-muted limit-1">→ {{dataValues.mensagem}}</p>
+        {{/each}}
+    </div>
+    <hr class="featurette-divider">
+</div>
+</a>
+<hr>
+{{/each}}
+</div>
+
+

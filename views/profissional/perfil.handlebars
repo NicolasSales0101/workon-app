@@ -18,11 +18,27 @@
             <p><b>Função: </b> {{usuarios.Profissionais.dataValues.profissao}}</p>
             <p><b>E-mail para contato:</b> {{usuarios.dataValues.email}}</p>
             <p><b>Localização:</b> {{usuarios.dataValues.cidade}}</p>
+            <p><b>Telefone:</b> {{usuarios.dataValues.telefone}}</p>
             <div class="callout left-color">
                 <strong>Descrição: </strong>
                 <p>{{usuarios.dataValues.descricao}}</p>
             </div>
-            <a href="/profissional/perfil/{{usuarios.dataValues.id}}" class="btn btn-primary">Editar perfil</a>
+            {{#if validacao}}
+                <a href="/profissional/perfil/{{usuarios.dataValues.id}}" class="btn btn-outline-primary mb-3 w-25">Editar perfil</a>
+            {{/if}}
+            <form action="/chat/new" method="post">
+                <input type="hidden" name="receptor_id" value="{{usuarios.dataValues.id}}">
+                <input type="hidden" name="receptor_nome" value="{{usuarios.dataValues.nome}}">
+                <input type="hidden" name="receptor_img" value="{{usuarios.dataValues.profile_img}}">
+                <input type="hidden" name="emissor_id" value="{{user.id}}">
+                <input type="hidden" name="emissor_nome" value="{{user.nome}}">
+                <input type="hidden" name="emissor_img" value="{{user.profile_img}}">
+                <button type="submit" class="btn btn-primary w-25">Conversar agora</button>
+            </form>
+            {{#if usuarios.dataValues.funcao}}
+            {{else}}
+                <a class="btn btn-outline-primary mb-3 w-25" href="/usuario/cadastro-profissao/{{user.id}}">Cadastrar-se como Profissional</a>
+            {{/if}}
         </div>
     </div>
 
@@ -92,60 +108,5 @@
     
     </style>
 
-    <div class="card mt-5 shadow p-3 mb-4 bg-body rounded">
-        <div class="card-body">
-            <h4 class="text-center"> Chat 💬 </h4>
-            <div class="body-messages">
-            <ul class="messages text-break" id="messages"><br></ul>
-            </div>
-            <br>
-            <form id="form">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Digite sua mensagem" aria-label="Digite sua mensagem" aria-describedby="button-addon2" id="input">
-                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Enviar</button>
-            </div>
-            </form>
-        </div>
-    </div>
-
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script><script  src="/js/script.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
-<script>
-    var result = '';
-     var socket = io()
-     var messages = document.getElementById('messages');
-     var form = document.getElementById('form');
-     var input = document.getElementById('input');
-     var sender_id = document.getElementById('emissor_id').value
-     var sender_nome = document.getElementById('emissor_nome').value
-     var receiver_id = document.getElementById('receptor_id').value
-     var receiver_nome = document.getElementById('receptor_nome').value
-     var data = new Date();
-     var dia = String(data.getDate()).padStart(2, '0');
-     var mes = String(data.getMonth() + 1).padStart(2, '0');
-     var ano = data.getFullYear();
-     dataAtual = dia + '/' + mes + '/' + ano;
-
-     
-    form.addEventListener('submit', function(e) {
-        e.preventDefault()
-        if (input.value) {
-            socket.emit('chat message', input.value, sender_id, sender_nome, receiver_id, receiver_nome, dataAtual);
-            input.value = ''
-        }
-     })
-
-    socket.on('chat message', function(msg, sender_id, sender_nome, dataAtual) {
-        var item = document.createElement('li');
-        if (sender_id == document.getElementById('emissor_id').value) {
-            item.innerHTML = '<p class="float-end small p-2 ms-3 mb-3 rounded-3" style="background-color: #f5f6f7;">' + msg  + '<small class="text white ms-1" style="font-size: 10px"> [' + dataAtual + ']</small></p><br><br>';    
-            messages.appendChild(item);
-            window.scrollTo(0, document.body.scrollHeight);
-        } else {
-            item.innerHTML = '<p class="float-start small p-2 me-3 mb-3 text-white rounded-3 bg-primary">' + '<b>' + sender_nome + ':</b> ' + msg + ' <small class="text white ms-1" style="font-size: 10px"> [' + dataAtual + ']</small></p><br><br>';    
-            messages.appendChild(item);
-            window.scrollTo(0, document.messages.scrollHeight);
-        }
-    });
 
 </script>

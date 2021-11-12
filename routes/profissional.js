@@ -11,7 +11,7 @@ const bodyParser = require('body-parser')
 const { Op } = require("sequelize");
 const multer = require('multer')
 const multerConfig = require('../config/multer')
-const Imagem = require('../models/Imagem')
+const Chat = require('../models/Chat')
 
 router.get('/', (req, res) => {
     res.render('profissional/index')
@@ -32,16 +32,38 @@ router.get('/perfil/:id', (req, res) => {
 })
 
 router.post('/perfil/edit', multer(multerConfig).single('file'), (req,res) => {
-    console.log('body.file: ' + req.body.file)
-    console.log('file: ' + req.file)
-    //console.log('filename: ' + req.file.filename)
     Usuario.findOne({where: {id: req.body.id}}).then((usuarios) => {
         usuarios.nome = req.body.nome
         usuarios.cidade = req.body.cidade
         usuarios.telefone = req.body.telefone
         usuarios.funcao = req.body.profissao
         usuarios.descricao = req.body.descricao
-        usuarios.profile_img = req.file.filename
+        
+        if (req.file) {
+            Chat.findAll({where: {
+                [Op.or]: [{sender_img: req.file.filename}]
+            }}).then((chat_sender) => {
+                if (chat_sender) {
+                    chat_sender.sender_img = req.file.filename
+                }
+            }).catch((err) => {
+                req.flash('error_msg', 'Houve um erro ao atualizar a foto em toda a página --> sender_img')
+                res.redirect('/usuarios/profissoes')
+            })
+
+            Chat.findAll({where: {
+                [Op.or]: [{receiver_img: req.file.filename}]
+            }}).then((chat_receiver) => {
+                if (chat_receiver) {
+                    chat_receiver.receiver_img = req.file.filename
+                }
+            }).catch((err) => {
+                req.flash('error_msg', 'Houve um erro ao atualizar a foto em toda a página --> receiver_img')
+                res.redirect('/usuarios/profissoes')
+            })
+
+            usuarios.profile_img = req.file.filename
+        }
 
         usuarios.save().then(() => {
             /*

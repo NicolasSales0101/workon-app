@@ -133,10 +133,9 @@ router.post('/login', passport.authenticate('local', {
     })
 
 router.get('/profissoes', (req, res) => {
-    Usuario.findAll({where: {funcao: {[Op.ne]: null}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
+    Usuario.findAll({where: {funcao: {[Op.ne]: null}, id: {[Op.ne]: req.user.id}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
         Profissional.findAll().then((profissionais) => {
-            Usuario.count({where: {funcao: {[Op.ne]: null}}}).then((resposta) => {
-                console.log(resposta)
+            Usuario.count({where: {funcao: {[Op.ne]: null}, id: {[Op.ne]: req.user.id}}}).then((resposta) => {
                 res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON()), profissionais: profissionais, total: resposta})
             })
         }).catch((err) => {
@@ -154,10 +153,9 @@ router.get('/profissoes', (req, res) => {
 router.post('/profissoes/filtro', (req, res) => {
     console.log(req.body.filtro)
     if (req.body.filtro != 0) {
-        Usuario.findAll({where: {funcao: {[Op.eq]: req.body.filtro}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
+        Usuario.findAll({where: {funcao: {[Op.eq]: req.body.filtro}, id: {[Op.ne]: req.user.id}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
             Profissional.findAll().then((profissionais) => {
-                Usuario.count({where: {funcao: {[Op.eq]: req.body.filtro}}}).then((resposta) => {
-                    console.log(resposta)
+                Usuario.count({where: {funcao: {[Op.eq]: req.body.filtro}, id: {[Op.ne]: req.user.id}}}).then((resposta) => {
                     res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON()), profissionais: profissionais, total: resposta})
                 })
             }).catch((err) => {
@@ -169,10 +167,9 @@ router.post('/profissoes/filtro', (req, res) => {
             res.redirect('/')
         })  
     } else {
-        Usuario.findAll({where: {funcao: {[Op.ne]: null}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
+        Usuario.findAll({where: {funcao: {[Op.ne]: null}, id: {[Op.ne]: req.user.id}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
             Profissional.findAll().then((profissionais) => {
-                Usuario.count({where: {funcao: {[Op.ne]: null}}}).then((resposta) => {
-                    console.log(resposta)
+                Usuario.count({where: {funcao: {[Op.ne]: null}, id: {[Op.ne]: req.user.id}}}).then((resposta) => {
                     res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON()), profissionais: profissionais, total: resposta})
                 })
             }).catch((err) => {
@@ -188,10 +185,9 @@ router.post('/profissoes/filtro', (req, res) => {
 })
 
 router.get('/profissoes/:id', (req, res) => {
-    Usuario.findAll({where: {funcao: {[Op.eq]: req.params.id}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
+    Usuario.findAll({where: {funcao: {[Op.eq]: req.params.id}, id: {[Op.ne]: req.user.id}}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
         Profissional.findAll().then((profissionais) => {
-            Usuario.count({where: {funcao: {[Op.eq]: req.params.id}}}).then((resposta) => {
-                console.log(resposta)
+            Usuario.count({where: {funcao: {[Op.eq]: req.params.id}, id: {[Op.ne]: req.user.id}}}).then((resposta) => {
                 res.render("usuarios/profissoes", {usuarios: usuarios.map(usuarios => usuarios.toJSON()), profissionais: profissionais, total: resposta})
             })
         }).catch((err) => {
@@ -206,9 +202,13 @@ router.get('/profissoes/:id', (req, res) => {
 
 router.get('/profissional/:id', (req, res) => {
     Usuario.findOne({where: {id: req.params.id}, include: [{model: Profissional, as: 'Profissionais'}]}).then((usuarios) => {
+        var validacao = false
+        
+        if(req.user.id == usuarios.id){
+            validacao = true
+        }
         if(usuarios){
-            res.render('profissional/perfil', {usuarios: usuarios, user: req.user})
-            //console.log(req.user)
+            res.render('profissional/perfil', {usuarios: usuarios, user: req.user, validacao: validacao})
         } else {
             req.flash('error_msg', 'Este profissional não existe!')
             res.redirect('/usuario/profissoes')

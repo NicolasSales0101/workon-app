@@ -2,15 +2,17 @@
 <input type="hidden" id="user_id" value="{{user.id}}">
 <input type="hidden" id="user_nome" value="{{user.nome}}">
 
-<div class="card mt-5 shadow p-3 mb-4 bg-body rounded">
+<a href='/chat' class="text-muted chat-link">←- Voltar para as conversas</a>
+
+<div class="card mt-3 shadow p-3 mb-4 bg-body rounded">
         <div class="card-body">
             <h4 class="text-center"> {{nickname}} 💬 </h4>
             <div class="body-messages">
-            <ul class="messages text-break" id="messages"><br>
+            <ul class="messages text-break list-group" id="messages">
                 {{#each mensagens}}
-                    <li class="float-end small p-2 me-3 mb-3 text-white rounded-3 bg-primary">
+                    <li class="float-start small p-2 fs-6 border-bottom">
                         <b>{{dataValues.sender_nome}}: </b> {{dataValues.mensagem}} <small class="text white ms-1" style="font-size: 10px"> {{dataValues.createdAt}}</small></p>
-                    </li><br><br><br>   
+                    </li>
                 {{else}}
                     <li class="float-end p-2 me-3 mb-3 text-white rounded-3">Envie uma mensagem!</li>
                 {{/each}}
@@ -36,8 +38,13 @@
     }
 
     .messages ul li {
+        
         text-decoration: none;
     }
+
+      #messages { list-style-type: none; margin: 0; padding: 0;}
+      #messages > li { padding: 0.5rem 1rem;}
+      #messages > li:nth-child(odd) { background: #efefef; }
 </style>
 
 
@@ -69,7 +76,7 @@
 
     socket.on('private chat message', function(msg, sender_id, sender_nome, dataAtual) {
         var item = document.createElement('li');
-        item.innerHTML = '<p class="float-end small p-2 me-3 mb-3 text-white rounded-3 bg-primary">' + '<b>' + sender_nome + ':</b> ' + msg + ' <small class="text white ms-1" style="font-size: 10px"> [' + dataAtual + ']</small></p><br><br><br>';    
+        item.innerHTML = '<p class="float-start small p-2 me-3 mb-4 text-white rounded-3 bg-primary">' + '<b>' + sender_nome + ':</b> ' + msg + ' <small class="text white ms-1" style="font-size: 10px"> [' + dataAtual + ']</small></p><br><br><br>';    
         messages.appendChild(item);
         window.scrollTo(0, document.messages.scrollHeight);
     });

@@ -13,7 +13,6 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
       <ul class="navbar-nav">
         <li class="nav-item me-n08 mb-2">
@@ -53,6 +52,8 @@
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
             {{#if user.funcao}} 
             <li><a class="dropdown-item" href="/usuario/profissional/{{user.id}}">Ver perfil</a></li>
+            {{else}}
+            <li><a class="dropdown-item" href="/usuario/cadastro-profissao/{{user.id}}">Cadastrar-se como Profissional</a></li>
             {{/if}}
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="/usuario/logout">Sair</a></li>

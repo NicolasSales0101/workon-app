@@ -61,7 +61,7 @@ router.post('/registro', (req, res) => {
                                 senha: hash,
                             }).then(() => {
                                 req.flash('success_msg', 'Usuario registrado com sucesso!')
-                                res.redirect('/usuario/profissoes')
+                                res.redirect('/usuario/saudacoes')
                             }).catch((err) => {
                                 req.flash('error_msg', 'Houve um erro durante o salvamento do usuario')
                                 res.redirect('/usuario/registro')
@@ -74,6 +74,10 @@ router.post('/registro', (req, res) => {
                 res.redirect('/')
             })
         }
+})
+
+router.get('/saudacoes', (req, res) => {
+    res.render('usuarios/saudacoes')
 })
 
 /* Rota para o usuário (que até então é um usuário normal) se cadastrar como um profissional 

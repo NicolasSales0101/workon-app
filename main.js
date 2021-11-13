@@ -8,16 +8,19 @@ const server = require('./app');
 
 let mainWindow = null;
 
+require("electron-reload")(__dirname, {
+    // Note that the path to electron may vary according to the main file
+    electron: require(`${__dirname}/node_modules/electron`),
+  });
+
 app.on('ready', function () { 
     const path = require('path');
-    /*
-    const iconPath = path.resolve(__dirname, './dist/myicon.ico');
-    const appIcon = new Tray(iconPath);
-    */
+    //const iconPath = path.resolve(__dirname, './public/img/logotipo_blackVersion2');
+    //const appIcon = new Tray(iconPath);
     mainWindow = new Window({
         width: 1280,
         height: 1024,
-        autoHideMenuBar: false,
+        autoHideMenuBar: true, //false para aparecer Menu bar
         useContentSize: true,
         resizable: true,
         webPreferences: {
@@ -25,9 +28,9 @@ app.on('ready', function () {
         },
         //icon: iconPath
     });
-    //appIcon.setToolTip('My Cool App');
-    mainWindow.loadURL('http://localhost:8081/');
-
+    //appIcon.setToolTip('WorkOn');
+    mainWindow.loadURL('http://localhost:3000/');
+    /* Descomenta isso para Menu bar for development
     // remove this for production
     var template = [
         {
@@ -77,7 +80,7 @@ app.on('ready', function () {
     ];
 
     const menu = Menu.buildFromTemplate(template);
-    Menu.setApplicationMenu(menu);
+    Menu.setApplicationMenu(menu);*/
 
     mainWindow.focus();
 

@@ -40,10 +40,14 @@
     height: 100%;
   }
 
+  .ms-n4 {
+    margin-left: -10rem !important;
+  }
+
 </style>
 
 <input type="hidden" id="totaUsers" value="{{usuarios.dataValues.count}}">
-<div class="p-5 mb-4 bg-dark rounded-3">
+<div class="p-5 mb-4 bg-dark rounded-3 d-sm-flex">
   <div class="container-fluid py-5 text-white">
     <h1 class="display-5 fw-bold">Profissionais disponíveis</h1>
     <p class="col-md-8 fs-4 mt-2">Nesta parte você encontrará os pedreiros, pintores, eletricistas, mestre de obras entre muitos outros profissionais! Aperte no botão verificar para olhar seu perfil e comece um bate-papo com ele!</p>
@@ -59,6 +63,15 @@
       </select>
       <button class="btn btn-outline-primary form-control-lg ms-2" type="submit">Filtrar</button>
     </form>
+  </div>
+  <div class="d-none d-xxl-block">
+    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpngimg.com%2Fuploads%2Findustrial_worker%2Findustrial_worker_PNG11420.png&f=1&nofb=1" class="border-bottom border-3 ms-n4">  
+  </div>
+  <div class="d-none d-xl-block d-xxl-none">
+    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpngimg.com%2Fuploads%2Findustrial_worker%2Findustrial_worker_PNG11420.png&f=1&nofb=1" class="border-bottom border-3 ms-n4">  
+  </div>
+  <div class="d-none d-lg-block d-xl-none">
+    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpngimg.com%2Fuploads%2Findustrial_worker%2Findustrial_worker_PNG11420.png&f=1&nofb=1" class="border-bottom border-3">  
   </div>
 </div>
 
@@ -95,7 +108,7 @@
     </div>
 
     {{else}}
-      <p>Nehum profissional registrado</p>
+      <p class="text-white fs-3">Nehum profissional registrado 😥</p>
     {{/each}}
   </div>
 </div>

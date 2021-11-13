@@ -14,7 +14,7 @@
                         <b>{{dataValues.sender_nome}}: </b> {{dataValues.mensagem}} <small class="text white ms-1" style="font-size: 10px"> {{dataValues.createdAt}}</small></p>
                     </li>
                 {{else}}
-                    <li class="float-end p-2 me-3 mb-3 text-white rounded-3">Envie uma mensagem!</li>
+                    <li class="float-start small p-2 fs-6 border-bottom text-center">Envie uma mensagem!</li>
                 {{/each}}
             </ul>
             </div>
@@ -76,7 +76,7 @@
 
     socket.on('private chat message', function(msg, sender_id, sender_nome, dataAtual) {
         var item = document.createElement('li');
-        item.innerHTML = '<p class="float-start small p-2 me-3 mb-4 text-white rounded-3 bg-primary">' + '<b>' + sender_nome + ':</b> ' + msg + ' <small class="text white ms-1" style="font-size: 10px"> [' + dataAtual + ']</small></p><br><br><br>';    
+        item.innerHTML = '<b>'+sender_nome+':</b> ' + msg + ' <small class="text white ms-1" style="font-size: 10px"> [' + dataAtual + ']</small></p>';    
         messages.appendChild(item);
         window.scrollTo(0, document.messages.scrollHeight);
     });

@@ -16,7 +16,8 @@ const Profissional = db.sequelize.define('profissionais', {
 
 //Profissional.sync({force: true})
 
-/*
+/* Recomenda-se comentar esse bloco depois de executar o projeto pela primeira vez */
+
 Profissional.create({
     id: 1,
     profissao: 'Pedreiro'
@@ -61,6 +62,7 @@ Profissional.create({
     id: 9,
     profissao: 'Ajudante de pedreiro'
 })
-*/
+
+/* Comenta até aqui! */
 
 module.exports = Profissional   

@@ -26,7 +26,11 @@ router.post('/new', (req, res) => {
                         }
                 }).then((chat) => {
         if(chat) {
-            res.redirect('/chat/' + chat.id)
+            if (chat.sender_id == req.body.emissor_id && chat.receiver_id == req.body.receptor_id) {
+                res.redirect('/chat/' + chat.id + '/' + chat.receiver_nome)
+            } else {
+                res.redirect('/chat/' + chat.id + '/' + chat.sender_nome)
+            }
         } else {
             Chat.create({
                 sender_id: req.body.emissor_id,
@@ -36,7 +40,7 @@ router.post('/new', (req, res) => {
                 receiver_nome: req.body.receptor_nome,
                 receiver_img: req.body.receptor_img
             }).then((nowchat) => {
-                res.redirect('/' + nowchat.id + '/' + nowchat.receiver_nome)
+                res.redirect('/chat/' + nowchat.id + '/' + nowchat.receiver_nome)
             }).catch((err) => {
                 console.log(err)
                 req.flash('error_msg', 'Houve um erro ao carregar o chat')

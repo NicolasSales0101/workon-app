@@ -112,6 +112,6 @@ const chat = require('./routes/chat')
 
     // Outros
 
-    server.listen(8081, () => {
+    server.listen(3000, () => {
         console.log('Servidor Rodando')
     })

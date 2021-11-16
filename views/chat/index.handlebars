@@ -6,11 +6,24 @@
         -webkit-line-clamp: 1; /* Quantidade de linhas */
         -webkit-box-orient: vertical; 
       }
+
+    .mb-n1 {
+        margin-bottom: -1rem !important;
+    }
+    
+    .mb-n13 {
+        margin-bottom: -1.3rem !important;
+    }
+
 </style>
 
-<h1>Mensagens: </h1>
+<div class="d-flex align-items-center ms-2">
+    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2Fe%2Fe2%2FEcho_chat_icon.svg%2F768px-Echo_chat_icon.svg.png&f=1&nofb=1" width="100px">
+    <h1 class="text-white ms-4 pt-4">Mensagens: </h1>
+</div>
 
-<hr>
+<hr class="text-white">
+<p class="text-muted">Aperte em uma conversa para abrir o bate-papo! 🔛</p>
 <div class="fs-6 box mb-5 mt-4 rounded-3 shadow p-3 mb-4 bg-body align-items-center">
 {{#if ifExist}}
 {{else}}

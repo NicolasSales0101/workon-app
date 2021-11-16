@@ -36,7 +36,6 @@
 <main class="form-signin text-center shadow-lg p-3 mb-4 bg-body rounded-3" style="width: 90%;">
   <form action="/profissional/perfil/edit" method="post" enctype="multipart/form-data">
   <input type="hidden" name="id" value="{{usuarios.dataValues.id}}">
-  <!--<img class="mb-n0.5" src="/img/{{usuarios.dataValues.profile_img}}" alt="" width="150" height="150">-->
       <div class="avatar-upload">
         <div class="avatar-edit">
             <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="file">
@@ -87,10 +86,8 @@
             </select>
       <label for="floatingSelect">Profissão</label>
     </div>
-    <!--
-    <input type="file" name="file" class="mb-2"><br>
-    -->
     <button class="w-100 btn btn-lg btn-primary" type="submit">Editar Perfil</button>
+    <p class="mt-1 text-muted">Se for mudar a imagem, mude somente ela, salva, e depois mude o resto. Aperte duas vezes caso for mudar a imagem</p>
     <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
   </form>
 </main>

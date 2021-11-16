@@ -1,5 +1,8 @@
 {{#each erros}}
-    <div class="alert alert-danger">{{texto}}</div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{texto}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 {{else}}
 
 {{/each}}
@@ -25,7 +28,7 @@
 </style>
 
 <div class="row justify-content-center">
-<main class="form-signin text-center shadow-lg p-3 mb-4 bg-body rounded" style="width: 33%;">
+<main class="form-signin text-center shadow-lg p-3 mb-4 bg-body rounded" style="width: 400px;">
   <form action="" method="post">
     <img class="mb-n1" src="/img/logotipo.jfif" alt="" width="150" height="150">
     <h1 class="h3 mb-3 fw-normal">Registra-se por favor</h1>

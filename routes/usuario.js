@@ -39,7 +39,7 @@ router.post('/registro', (req, res) => {
         }
 
         if(erros.length > 0){
-            res.render('/registro', {erros: erros})
+            res.render('usuarios/registro', {erros: erros})
         } else {
             Usuario.findOne({where: {email: req.body.email}}).then((usuario) => {
                 if(usuario){
@@ -78,6 +78,10 @@ router.post('/registro', (req, res) => {
 
 router.get('/saudacoes', (req, res) => {
     res.render('usuarios/saudacoes')
+})
+
+router.get('/sobre', (req, res) => {
+    res.render('usuarios/sobre')
 })
 
 /* Rota para o usuário (que até então é um usuário normal) se cadastrar como um profissional 

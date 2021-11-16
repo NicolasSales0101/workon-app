@@ -79,4 +79,5 @@ Projeto com ✔Node.js 📦 MySQL ⚙ Express 🖇 Sequelize 💻 Entre outras t
  #### Autores: 
  - <a href="https://github.com/NicolasSales0101">Nicolas Sales</a>
  - <a href="https://github.com/Paulo654">Paulo Henrique Abrantes</a> 
- 
+ <p></p>
+ 📁 Link do repositório no GitHub <a href="https://github.com/NicolasSales0101/workon-app">aqui</a>
